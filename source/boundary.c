@@ -2,8 +2,32 @@
 #define marginLeft 4
 #define marginRight 4
 #define marginTop 3
-#define WIDTH 11  // Inside width
+#define WIDTH 12  // Inside width
 #define HEIGHT 20 // Inside height
+
+void setBoundary()
+{
+
+    for (int j = 0; j < HEIGHT + 1; j++)
+    {
+        gotoxy(marginLeft, marginTop + j);
+        for (int i = 0; i < WIDTH; i++)
+        {
+            printf("бр");
+        }
+    }
+    int nextBlockLeft = marginLeft + (WIDTH)*2 + marginRight * 2,
+        nextBlockWidth = 8, nextBlockHeight = 6;
+
+    for (int j = 0; j < nextBlockHeight; j++)
+    {
+        gotoxy(nextBlockLeft, marginTop + j);
+        for (int i = 0; i < nextBlockWidth; i++)
+        {
+            printf("бр");
+        }
+    }
+}
 
 // void setBoundary()
 // {
@@ -55,27 +79,3 @@
 //         printf("бр");
 //     }
 // }
-
-void setBoundary()
-{
-
-    for (int j = 0; j < HEIGHT + 1; j++)
-    {
-        gotoxy(marginLeft, marginTop + j);
-        for (int i = 0; i < WIDTH + 1; i++)
-        {
-            printf("бр");
-        }
-    }
-    int nextBlockLeft = marginLeft + (WIDTH + 1) * 2 + marginRight * 2,
-        nextBlockWidth = 8, nextBlockHeight = 6;
-
-    for (int j = 0; j < nextBlockHeight; j++)
-    {
-        gotoxy(nextBlockLeft, marginTop + j);
-        for (int i = 0; i < nextBlockWidth; i++)
-        {
-            printf("бр");
-        }
-    }
-}
