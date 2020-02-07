@@ -1,8 +1,3 @@
-// encoding to euc-kr
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-
 typedef enum
 {
     NOCURSOR,

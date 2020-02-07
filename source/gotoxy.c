@@ -1,7 +1,3 @@
-// encoding to euc-kr
-#include <stdio.h>
-#include <windows.h>
-
 #define LEFT 75
 #define RIGHT 77
 #define UP 72
