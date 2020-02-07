@@ -28,7 +28,7 @@ void putBlock(int x, int y, int index, int dir, int isBlockArr[][arr_HEIGHT])
         }
         break;
     case 1:
-        switch (dir)
+        switch (dir % 4)
         {
         case 0:
             gotoxy(x + 2, y - 1);
@@ -65,7 +65,7 @@ void putBlock(int x, int y, int index, int dir, int isBlockArr[][arr_HEIGHT])
         }
         break;
     case 2:
-        switch (dir)
+        switch (dir % 4)
         {
         case 0:
             gotoxy(x - 2, y - 1);
@@ -151,7 +151,7 @@ void putBlock(int x, int y, int index, int dir, int isBlockArr[][arr_HEIGHT])
         isBlockArr[x / 2][y] = isBlockArr[x / 2 + 1][y] = isBlockArr[x / 2][y + 1] = isBlockArr[x / 2 + 1][y + 1] = 1;
         break;
     case 6:
-        switch (dir)
+        switch (dir % 4)
         {
         case 0:
             gotoxy(x, y - 1);
@@ -218,7 +218,7 @@ void removeBlock(int x, int y, int index, int dir, int isBlockArr[][arr_HEIGHT])
         }
         break;
     case 1:
-        switch (dir)
+        switch (dir % 4)
         {
         case 0:
             gotoxy(x + 2, y - 1);
@@ -255,7 +255,7 @@ void removeBlock(int x, int y, int index, int dir, int isBlockArr[][arr_HEIGHT])
         }
         break;
     case 2:
-        switch (dir)
+        switch (dir % 4)
         {
         case 0:
             gotoxy(x - 2, y - 1);
@@ -341,7 +341,7 @@ void removeBlock(int x, int y, int index, int dir, int isBlockArr[][arr_HEIGHT])
         isBlockArr[x / 2][y] = isBlockArr[x / 2 + 1][y] = isBlockArr[x / 2][y + 1] = isBlockArr[x / 2 + 1][y + 1] = 0;
         break;
     case 6:
-        switch (dir)
+        switch (dir % 4)
         {
         case 0:
             gotoxy(x, y - 1);
@@ -416,7 +416,7 @@ bool isBlockSet(int x, int y, int index, int dir, int isBlockArr[][arr_HEIGHT])
         }
         break;
     case 1:
-        switch (dir)
+        switch (dir % 4)
         {
         case 0:
             if (isBlockArr[x / 2 - 1][y] + isBlockArr[x / 2][y] + isBlockArr[x / 2 + 1][y] > 0)
@@ -445,7 +445,7 @@ bool isBlockSet(int x, int y, int index, int dir, int isBlockArr[][arr_HEIGHT])
         }
         break;
     case 2:
-        switch (dir)
+        switch (dir % 4)
         {
         case 0:
             if (isBlockArr[x / 2 - 1][y] + isBlockArr[x / 2][y] + isBlockArr[x / 2 + 1][y] > 0)
@@ -514,7 +514,7 @@ bool isBlockSet(int x, int y, int index, int dir, int isBlockArr[][arr_HEIGHT])
             return false;
         break;
     case 6:
-        switch (dir)
+        switch (dir % 4)
         {
         case 0:
             if (isBlockArr[x / 2 + 1][y] + isBlockArr[x / 2][y] > 0)

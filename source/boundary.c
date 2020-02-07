@@ -16,12 +16,12 @@ void setBoundary()
             printf("бр");
         }
     }
-    int nextBlockLeft = marginLeft + (WIDTH)*2 + marginRight * 2,
-        nextBlockWidth = 8, nextBlockHeight = 6;
+    int nextBlockLeft = marginLeft + (WIDTH)*2 + marginRight * 2, // 36
+        nextBlockWidth = 6, nextBlockHeight = 6;
 
     for (int j = 0; j < nextBlockHeight; j++)
     {
-        gotoxy(nextBlockLeft, marginTop + j);
+        gotoxy(nextBlockLeft, marginTop + j); // 36, 3
         for (int i = 0; i < nextBlockWidth; i++)
         {
             printf("бр");
