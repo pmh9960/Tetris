@@ -2,7 +2,7 @@
 #define marginLeft 5
 #define marginRight 3
 #define marginTop 3
-#define WIDTH 10  // Inside width
+#define WIDTH 11  // Inside width
 #define HEIGHT 20 // Inside height
 
 void setBoundary()
@@ -10,19 +10,19 @@ void setBoundary()
     gotoxy(marginLeft, marginTop);
     for (int i = 0; i < WIDTH + 1; i++)
     {
-        printf("■");
+        printf("□");
     }
     for (int i = 0; i < HEIGHT + 1; i++)
     {
         gotoxy(marginLeft, marginTop + i);
-        printf("■");
+        printf("□");
         gotoxy(marginLeft + (WIDTH + 1) * 2, marginTop + i);
-        printf("■");
+        printf("□");
     }
     gotoxy(marginLeft, marginTop + HEIGHT + 1);
     for (int i = 0; i < WIDTH + 2; i++)
     {
-        printf("■");
+        printf("□");
     }
 
     // 각 꼭지점 위치
@@ -40,18 +40,18 @@ void setBoundary()
     gotoxy(nextBlockLeft, marginTop);
     for (int i = 0; i < nextBlockWidth; i++)
     {
-        printf("■");
+        printf("□");
     }
     for (int i = 0; i < nextBlockHeight; i++)
     {
         gotoxy(nextBlockLeft, marginTop + i);
-        printf("■");
+        printf("□");
         gotoxy(nextBlockLeft + (nextBlockWidth - 1) * 2, marginTop + i);
-        printf("■");
+        printf("□");
     }
     gotoxy(nextBlockLeft, marginTop + nextBlockHeight - 1);
     for (int i = 0; i < nextBlockWidth; i++)
     {
-        printf("■");
+        printf("□");
     }
 }
