@@ -14,21 +14,241 @@
 #define HEIGHT 20 // Inside height
 #define MAX 50000 // CntÀÇ Á¦ÇÑ
 
-int array[WIDTH * 2][HEIGHT * 2] = {
-    0,
+int array[WIDTH + 2][HEIGHT + 2] = {
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 };
+
+void showArray();
 
 int main()
 {
     setcursortype(NOCURSOR);
-    //setBoundary();
-    seeAllBlocks(array);
+    setBoundary();
+    //seeAllBlocks(array);
     int cnt = 0,
         startX = marginLeft + WIDTH + 1,
         startY = marginTop + 2,
         curX, curY, curI, curD; // current x, y, index, direction
     char ch;
-    putBlock(startX, startY, 1, 0, array);
+
+    curX = startX - 12;
+    curY = startY;
+    curI = 1;
+    curD = 3;
+    // curI = function();
+    // curD = function();
+
+    putBlock(curX, curY, curI, curD, array);
+    while (true)
+    {
+        if (cnt > MAX)
+            cnt = 0;
+        if (cnt % 5 == 0)
+        {
+            showArray();
+            if (!isBlockSet(curX, curY, curI, curD, array))
+            {
+                removeBlock(curX, curY, curI, curD, array);
+                putBlock(curX, ++curY, curI, curD, array);
+            }
+            else
+            {
+                break;
+            }
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
+
+    curX = startX - 6;
+    curY = startY;
+    curI = 1;
+    curD = 3;
+    // curI = function();
+    // curD = function();
+
+    putBlock(curX, curY, curI, curD, array);
+    while (true)
+    {
+        if (cnt > MAX)
+            cnt = 0;
+        if (cnt % 5 == 0)
+        {
+            showArray();
+            if (!isBlockSet(curX, curY, curI, curD, array))
+            {
+                removeBlock(curX, curY, curI, curD, array);
+                putBlock(curX, ++curY, curI, curD, array);
+            }
+            else
+            {
+                break;
+            }
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
+    curX = startX - 4;
+    curY = startY;
+    curI = 1;
+    curD = 1;
+    // curI = function();
+    // curD = function();
+
+    putBlock(curX, curY, curI, curD, array);
+    while (true)
+    {
+        if (cnt > MAX)
+            cnt = 0;
+        if (cnt % 5 == 0)
+        {
+            showArray();
+            if (!isBlockSet(curX, curY, curI, curD, array))
+            {
+                removeBlock(curX, curY, curI, curD, array);
+                putBlock(curX, ++curY, curI, curD, array);
+            }
+            else
+            {
+                break;
+            }
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
+
+    curX = startX;
+    curY = startY;
+    curI = 1;
+    curD = 3;
+    // curI = function();
+    // curD = function();
+
+    putBlock(curX, curY, curI, curD, array);
+    while (true)
+    {
+        if (cnt > MAX)
+            cnt = 0;
+        if (cnt % 5 == 0)
+        {
+            showArray();
+            if (!isBlockSet(curX, curY, curI, curD, array))
+            {
+                removeBlock(curX, curY, curI, curD, array);
+                putBlock(curX, ++curY, curI, curD, array);
+            }
+            else
+            {
+                break;
+            }
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
+    curX = startX + 4;
+    curY = startY;
+    curI = 0;
+    curD = 0;
+    // curI = function();
+    // curD = function();
+
+    putBlock(curX, curY, curI, curD, array);
+    while (true)
+    {
+        if (cnt > MAX)
+            cnt = 0;
+        if (cnt % 5 == 0)
+        {
+            showArray();
+            if (!isBlockSet(curX, curY, curI, curD, array))
+            {
+                removeBlock(curX, curY, curI, curD, array);
+                putBlock(curX, ++curY, curI, curD, array);
+            }
+            else
+            {
+                break;
+            }
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
+
+    curX = startX + 8;
+    curY = startY;
+    curI = 1;
+    curD = 3;
+    // curI = function();
+    // curD = function();
+
+    putBlock(curX, curY, curI, curD, array);
+    while (true)
+    {
+        if (cnt > MAX)
+            cnt = 0;
+        if (cnt % 5 == 0)
+        {
+            showArray();
+            if (!isBlockSet(curX, curY, curI, curD, array))
+            {
+                removeBlock(curX, curY, curI, curD, array);
+                putBlock(curX, ++curY, curI, curD, array);
+            }
+            else
+            {
+                break;
+            }
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
+    curX = startX + 8;
+    curY = startY;
+    curI = 5;
+    curD = 3;
+    // curI = function();
+    // curD = function();
+
+    putBlock(curX, curY, curI, curD, array);
+    while (true)
+    {
+        if (cnt > MAX)
+            cnt = 0;
+        if (cnt % 5 == 0)
+        {
+            showArray();
+            if (!isBlockSet(curX, curY, curI, curD, array))
+            {
+                removeBlock(curX, curY, curI, curD, array);
+                putBlock(curX, ++curY, curI, curD, array);
+            }
+            else
+            {
+                break;
+            }
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
+
+    system("pause > nul"); // ½ÇÇàÃ¢ ¹Ù·Î ´ÝÈû ÇØ°á¹ý
+    return 0;
+}
+
+void showArray()
+{
     for (int i = 0; i < HEIGHT + 2; i++)
     {
         gotoxy(70, i);
@@ -38,33 +258,4 @@ int main()
         }
         printf("\n");
     }
-    curX = startX;
-    curY = startY;
-    curI = 1;
-    curD = 0;
-    // curI = function();
-    // curD = function();
-    putBlock(curX, curY, curI, curD, array);
-    while (true)
-    {
-        if (cnt > MAX)
-            cnt = 0;
-        if (cnt % 5 == 0)
-        {
-            if (!isBlockSet(curX, curY + 1, curI, curD, array))
-            {
-                removeBlock(curX, curY, curI, curD, array);
-                putBlock(curX, ++curY, curI, curD, array);
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        Sleep(1000 / freq);
-        cnt++;
-    }
-
-    system("pause > nul"); // ½ÇÇàÃ¢ ¹Ù·Î ´ÝÈû ÇØ°á¹ý
-    return 0;
 }
