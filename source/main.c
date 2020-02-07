@@ -12,70 +12,58 @@
 #define freq 50
 #define WIDTH 11  // Inside width
 #define HEIGHT 20 // Inside height
+#define MAX 50000 // Cnt의 제한
+
+int array[WIDTH * 2][HEIGHT * 2] = {
+    0,
+};
 
 int main()
 {
     setcursortype(NOCURSOR);
-    setBoundary();
-    //seeAllBlocks();
+    //setBoundary();
+    seeAllBlocks(array);
     int cnt = 0,
         startX = marginLeft + WIDTH + 1,
         startY = marginTop + 2,
-        currentX, currentY;
+        curX, curY, curI, curD; // current x, y, index, direction
     char ch;
-    // for (int i = 0; i < HEIGHT * 2; i++)
-    // {
-    //     gotoxy(70, i);
-    //     for (int j = 0; j < WIDTH * 2; j++)
-    //     {
-    //         printf("%d ", arr[j][i]);
-    //     }
-    //     printf("\n");
-    // }
-
-    // while (!isBlockSet)
-    // {
-    //     ch = '\0';
-    //     if (kbhit()) // 키보드가 입력 받을 때만
-    //     {
-    //         ch = getch();
-    //         removeBlock(x, y, index, dir);
-    //         switch (ch)
-    //         {
-    //         case 'a':
-    //             if (n > 10)
-    //                 n = 0;
-    //             bulX[n] = x;
-    //             bulY[n] = y - 1;
-    //             n++;
-    //             break;
-    //         case UP:
-    //             if (y > 0)
-    //                 y--;
-    //             break;
-    //         case DOWN:
-    //             if (y < 24)
-    //                 y++;
-    //             break;
-    //         case LEFT:
-    //             if (x > 0)
-    //                 x--;
-    //             break;
-    //         case RIGHT:
-    //             if (x < 79)
-    //                 x++;
-    //             break;
-    //         }
-    //         gotoxy(x, y);
-    //         printf("@");
-    //     }
-    //     if (cnt % 5 == 0)
-    //     {
-    //     }
-
-    //     Sleep(1000 / freq);
-    //     cnt++;
-    // }
+    putBlock(startX, startY, 1, 0, array);
+    for (int i = 0; i < HEIGHT + 2; i++)
+    {
+        gotoxy(70, i);
+        for (int j = 0; j < WIDTH + 2; j++)
+        {
+            printf("%d ", array[j][i]);
+        }
+        printf("\n");
+    }
+    curX = startX;
+    curY = startY;
+    curI = 1;
+    curD = 0;
+    // curI = function();
+    // curD = function();
+    putBlock(curX, curY, curI, curD, array);
+    while (true)
+    {
+        if (cnt > MAX)
+            cnt = 0;
+        if (cnt % 5 == 0)
+        {
+            if (!isBlockSet(curX, curY + 1, curI, curD, array))
+            {
+                removeBlock(curX, curY, curI, curD, array);
+                putBlock(curX, ++curY, curI, curD, array);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
 
     system("pause > nul"); // 실행창 바로 닫힘 해결법
     return 0;

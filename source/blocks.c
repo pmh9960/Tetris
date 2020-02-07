@@ -1,13 +1,9 @@
 #define WIDTH 11  // Inside width
 #define HEIGHT 20 // Inside height
 
-int isBlockArr[WIDTH * 2][HEIGHT * 2] = {
-    0,
-};
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void putBlock(int x, int y, int index, int dir)
+void putBlock(int x, int y, int index, int dir, int isBlockArr[][HEIGHT * 2])
 {
     switch (index)
     {
@@ -40,7 +36,10 @@ void putBlock(int x, int y, int index, int dir)
             printf("бс");
             gotoxy(x - 2, y);
             printf("бсбсбс");
-            isBlockArr[x + 1][y - 1] = isBlockArr[x - 1][y] = isBlockArr[x][y] = isBlockArr[x + 1][y] = 1;
+            isBlockArr[x + 1][y - 1] = 1;
+            isBlockArr[x - 1][y] = 1;
+            isBlockArr[x][y] = 1;
+            isBlockArr[x + 1][y] = 1;
             break;
         case 1:
             gotoxy(x - 2, y - 1);
@@ -116,7 +115,7 @@ void putBlock(int x, int y, int index, int dir)
             printf("бсбс");
             gotoxy(x + 2, y + 1);
             printf("бс");
-            isBlockArr[x][y - 1] = isBlockArr[x][y] = isBlockArr[x + 1][y] = isBlockArr[x + 1][y] = 1;
+            isBlockArr[x][y - 1] = isBlockArr[x][y] = isBlockArr[x + 1][y] = isBlockArr[x + 1][y + 1] = 1;
             break;
         case 1:
             gotoxy(x, y - 1);
@@ -197,7 +196,7 @@ void putBlock(int x, int y, int index, int dir)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void removeBlock(int x, int y, int index, int dir)
+void removeBlock(int x, int y, int index, int dir, int isBlockArr[][HEIGHT * 2])
 {
     switch (index)
     {
@@ -306,7 +305,7 @@ void removeBlock(int x, int y, int index, int dir)
             printf("    ");
             gotoxy(x + 2, y + 1);
             printf("  ");
-            isBlockArr[x][y - 1] = isBlockArr[x][y] = isBlockArr[x + 1][y] = isBlockArr[x + 1][y] = 0;
+            isBlockArr[x][y - 1] = isBlockArr[x][y] = isBlockArr[x + 1][y] = isBlockArr[x + 1][y + 1] = 0;
             break;
         case 1:
             gotoxy(x, y - 1);
@@ -386,18 +385,18 @@ void removeBlock(int x, int y, int index, int dir)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void seeAllBlocks()
+void seeAllBlocks(int isBlockArr[][HEIGHT * 2])
 {
     for (int i = 0; i < 7; i++)
     {
         for (int dir = 0; dir < 4; dir++)
         {
-            putBlock(4 + dir * 8, 2 + i * 4, i, dir);
+            putBlock(4 + dir * 8, 2 + i * 4, i, dir, isBlockArr);
         }
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool isBlockSet(int x, int y, int index, int dir)
+bool isBlockSet(int x, int y, int index, int dir, int isBlockArr[][HEIGHT * 2])
 {
     switch (index)
     {
@@ -434,20 +433,16 @@ bool isBlockSet(int x, int y, int index, int dir)
                 return false;
             break;
         case 2:
-            gotoxy(x - 2, y);
-            printf("бсбсбс");
-            gotoxy(x - 2, y + 1);
-            printf("бс");
-            isBlockArr[x - 1][y] + isBlockArr[x][y] + isBlockArr[x + 1][y] + isBlockArr[x - 1][y + 1] + 1;
+            if (isBlockArr[x][y + 1] + isBlockArr[x + 1][y + 1] + isBlockArr[x - 1][y + 2] > 0)
+                return true;
+            else
+                return false;
             break;
         case 3:
-            gotoxy(x, y - 1);
-            printf("бс");
-            gotoxy(x, y);
-            printf("бс");
-            gotoxy(x, y + 1);
-            printf("бсбс");
-            isBlockArr[x][y - 1] + isBlockArr[x][y] + isBlockArr[x][y + 1] + isBlockArr[x + 1][y] + 1;
+            if (isBlockArr[x][y + 2] + isBlockArr[x + 1][y + 1] > 0)
+                return true;
+            else
+                return false;
             break;
         }
         break;
@@ -455,36 +450,28 @@ bool isBlockSet(int x, int y, int index, int dir)
         switch (dir)
         {
         case 0:
-            gotoxy(x - 2, y - 1);
-            printf("бс");
-            gotoxy(x - 2, y);
-            printf("бсбсбс");
-            isBlockArr[x - 1][y - 1] + isBlockArr[x - 1][y] + isBlockArr[x][y] + isBlockArr[x + 1][y] + 1;
+            if (isBlockArr[x - 1][y + 1] + isBlockArr[x][y + 1] + isBlockArr[x + 1][y + 1] > 0)
+                return true;
+            else
+                return false;
             break;
         case 1:
-            gotoxy(x, y - 1);
-            printf("бс");
-            gotoxy(x, y);
-            printf("бс");
-            gotoxy(x - 2, y + 1);
-            printf("бсбс");
-            isBlockArr[x][y - 1] + isBlockArr[x][y] + isBlockArr[x - 1][y + 1] + isBlockArr[x][y + 1] + 1;
+            if (isBlockArr[x - 1][y + 2] + isBlockArr[x][y + 2] > 0)
+                return true;
+            else
+                return false;
             break;
         case 2:
-            gotoxy(x - 2, y);
-            printf("бсбсбс");
-            gotoxy(x + 2, y + 1);
-            printf("бс");
-            isBlockArr[x - 1][y] + isBlockArr[x][y] + isBlockArr[x + 1][y] + isBlockArr[x + 1][y + 1] + 1;
+            if (isBlockArr[x - 1][y + 1] + isBlockArr[x][y + 1] + isBlockArr[x + 1][y + 2] > 0)
+                return true;
+            else
+                return false;
             break;
         case 3:
-            gotoxy(x, y - 1);
-            printf("бсбс");
-            gotoxy(x, y);
-            printf("бс");
-            gotoxy(x, y + 1);
-            printf("бс");
-            isBlockArr[x][y - 1] + isBlockArr[x + 1][y - 1] + isBlockArr[x][y] + isBlockArr[x][y + 1] + 1;
+            if (isBlockArr[x + 1][y] + isBlockArr[x][y + 2] > 0)
+                return true;
+            else
+                return false;
             break;
         }
         break;
@@ -492,20 +479,16 @@ bool isBlockSet(int x, int y, int index, int dir)
         switch (dir % 2)
         {
         case 0:
-            gotoxy(x, y - 1);
-            printf("бс");
-            gotoxy(x, y);
-            printf("бсбс");
-            gotoxy(x + 2, y + 1);
-            printf("бс");
-            isBlockArr[x][y - 1] + isBlockArr[x][y] + isBlockArr[x + 1][y] + isBlockArr[x + 1][y] + 1;
+            if (isBlockArr[x][y + 1] + isBlockArr[x + 1][y + 2] > 0)
+                return true;
+            else
+                return false;
             break;
         case 1:
-            gotoxy(x, y - 1);
-            printf("бсбс");
-            gotoxy(x - 2, y);
-            printf("бсбс");
-            isBlockArr[x][y - 1] + isBlockArr[x + 1][y - 1] + isBlockArr[x - 1][y] + isBlockArr[x][y] + 1;
+            if (isBlockArr[x + 1][y] + isBlockArr[x - 1][y + 1] + isBlockArr[x][y + 1] > 0)
+                return true;
+            else
+                return false;
             break;
         }
         break;
@@ -513,66 +496,54 @@ bool isBlockSet(int x, int y, int index, int dir)
         switch (dir % 2)
         {
         case 0:
-            gotoxy(x, y - 1);
-            printf("бс");
-            gotoxy(x - 2, y);
-            printf("бсбс");
-            gotoxy(x - 2, y + 1);
-            printf("бс");
-            isBlockArr[x][y - 1] + isBlockArr[x - 1][y] + isBlockArr[x][y] + isBlockArr[x - 1][y + 1] + 1;
+            if (isBlockArr[x][y + 1] + isBlockArr[x - 1][y + 2] > 0)
+                return true;
+            else
+                return false;
             break;
         case 1:
-            gotoxy(x - 2, y);
-            printf("бсбс");
-            gotoxy(x, y + 1);
-            printf("бсбс");
-            isBlockArr[x - 1][y] + isBlockArr[x][y] + isBlockArr[x][y + 1] + isBlockArr[x + 1][y] + 1;
+            if (isBlockArr[x - 1][y + 1] + isBlockArr[x][y + 2] + isBlockArr[x + 1][y + 1] > 0)
+                return true;
+            else
+                return false;
             break;
         }
         break;
     case 5:
-        gotoxy(x, y);
-        printf("бсбс");
-        gotoxy(x, y + 1);
-        printf("бсбс");
-        isBlockArr[x][y] + isBlockArr[x + 1][y] + isBlockArr[x][y + 1] + isBlockArr[x + 1][y + 1] + 1;
+        if (isBlockArr[x][y + 2] + isBlockArr[x + 1][y + 2] > 0)
+            return true;
+        else
+            return false;
         break;
     case 6:
         switch (dir)
         {
         case 0:
-            gotoxy(x, y - 1);
-            printf("бс");
-            gotoxy(x, y);
-            printf("бсбс");
-            gotoxy(x, y + 1);
-            printf("бс");
-            isBlockArr[x][y - 1] + isBlockArr[x][y] + isBlockArr[x + 1][y] + isBlockArr[x][y + 1] + 1;
+            if (isBlockArr[x + 1][y + 1] + isBlockArr[x][y + 2] > 0)
+                return true;
+            else
+                return false;
             break;
         case 1:
-            gotoxy(x, y - 1);
-            printf("бс");
-            gotoxy(x - 2, y);
-            printf("бсбсбс");
-            isBlockArr[x][y - 1] + isBlockArr[x - 1][y] + isBlockArr[x][y] + isBlockArr[x + 1][y] + 1;
+            if (isBlockArr[x - 1][y + 1] + isBlockArr[x][y + 1] + isBlockArr[x + 1][y + 1] > 0)
+                return true;
+            else
+                return false;
             break;
         case 2:
-            gotoxy(x, y - 1);
-            printf("бс");
-            gotoxy(x - 2, y);
-            printf("бсбс");
-            gotoxy(x, y + 1);
-            printf("бс");
-            isBlockArr[x][y - 1] + isBlockArr[x - 1][y] + isBlockArr[x][y] + isBlockArr[x][y + 1] + 1;
+            if (isBlockArr[x - 1][y + 1] + isBlockArr[x][y + 2] > 0)
+                return true;
+            else
+                return false;
             break;
         case 3:
-            gotoxy(x - 2, y);
-            printf("бсбсбс");
-            gotoxy(x, y + 1);
-            printf("бс");
-            isBlockArr[x - 1][y] + isBlockArr[x][y] + isBlockArr[x + 1][y] + isBlockArr[x][y + 1] + 1;
+            if (isBlockArr[x - 1][y] + isBlockArr[x + 1][y] + isBlockArr[x][y + 1] > 0)
+                return true;
+            else
+                return false;
             break;
         }
         break;
     }
+    return false;
 }

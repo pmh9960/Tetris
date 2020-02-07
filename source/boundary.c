@@ -1,6 +1,6 @@
 // encoding to euc-kr
-#define marginLeft 5
-#define marginRight 3
+#define marginLeft 4
+#define marginRight 4
 #define marginTop 3
 #define WIDTH 11  // Inside width
 #define HEIGHT 20 // Inside height
