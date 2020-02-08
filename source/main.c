@@ -10,16 +10,19 @@
 #include "boundary.c"
 #include "blocks.c"
 #include "erase_line.c"
+#include "set_speed.c"
 
 #define freq 50
 #define WIDTH 12  // Inside width
 #define HEIGHT 20 // Inside height
-#define MAX 50000 // Cnt의 제한
+#define MAX 500   // Cnt의 제한
+
 #define LEFT 75
 #define RIGHT 77
 #define UP 72
 #define DOWN 80
 #define SPACE 32
+#define ESC 27
 
 int mainArray[WIDTH + 3][HEIGHT + 5] = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -41,7 +44,8 @@ int mainArray[WIDTH + 3][HEIGHT + 5] = {
 int nextArray[WIDTH + 3][HEIGHT + 5] = {
     0,
 };
-void showMainArray();
+
+// void showMainArray();
 
 int main()
 {
@@ -50,12 +54,14 @@ int main()
     setBoundary();
     makeBlockHard(mainArray);
     //seeAllBlocks(mainArray);
+
     int cnt = 0,
         startX = marginLeft + WIDTH - 2,
         startY = marginTop + 1,
         curX, curY, curI, curD, // current x, y, index, direction
         nextI = rand() % 7,
         nextD = rand() % 4;
+    int score = 0, speed = 30;
     char ch;
 
     while (!isBlockSet(startX, startY + 1, curI, curD, mainArray))
@@ -66,6 +72,8 @@ int main()
         curD = nextD;
         putBlock(curX, curY, curI, curD, mainArray);
 
+        setSpeed(&speed, score);
+
         removeBlock(40, 5, nextI, nextD, nextArray);
         nextI = rand() % 7;
         nextD = rand() % 4;
@@ -74,7 +82,9 @@ int main()
         while (true)
         {
             if (cnt > MAX)
+            {
                 cnt = 0;
+            }
             ch = '\0';
             if (kbhit())
             {
@@ -117,19 +127,23 @@ int main()
                     {
                         removeBlock(curX, curY, curI, curD, mainArray);
                         putBlock(curX, ++curY, curI, curD, mainArray);
+                        score++;
+                        information(&score);
                     }
                     break;
                 }
             }
 
             // block fall
-            if (cnt % 10 == 0)
+            if (cnt % speed == 0)
             {
                 //showMainArray();
                 if (!isBlockSet(curX, curY + 1, curI, curD, mainArray))
                 {
                     removeBlock(curX, curY, curI, curD, mainArray);
                     putBlock(curX, ++curY, curI, curD, mainArray);
+                    score++;
+                    information(&score);
                 }
                 else
                 {
@@ -140,23 +154,51 @@ int main()
             Sleep(1000 / freq);
             cnt++;
         }
-        eraseLine(mainArray);
+
+        eraseLine(mainArray, &score);
         makeBlockHard(mainArray);
     }
-
-    system("pause > nul"); // 실행창 바로 닫힘 해결법
+    ch = '\0';
+    cnt = 0;
+    while (true)
+    {
+        if (kbhit())
+        {
+            ch = getch();
+            if (ch == ESC)
+                break;
+        }
+        if (cnt > 70)
+            cnt = 0;
+        if (cnt / 35 == 0)
+        {
+            gotoxy(marginLeft + 4, marginTop + HEIGHT + 2);
+            printf("G A M E  O V E R");
+            gotoxy(marginLeft, marginTop + HEIGHT + 3);
+            printf("Press 'ESC' button to exit.");
+        }
+        else
+        {
+            gotoxy(marginLeft + 4, marginTop + HEIGHT + 2);
+            printf("                  ");
+            gotoxy(marginLeft, marginTop + HEIGHT + 3);
+            printf("                            ");
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
     return 0;
 }
 
-void showMainArray()
-{
-    for (int i = 3; i < HEIGHT + 5; i++)
-    {
-        gotoxy(70, i);
-        for (int j = 1; j < WIDTH + 2; j++)
-        {
-            printf("%3d", mainArray[j][i]);
-        }
-        printf("\n");
-    }
-}
+// void showMainArray()
+// {
+//     for (int i = 3; i < HEIGHT + 5; i++)
+//     {
+//         gotoxy(70, i);
+//         for (int j = 1; j < WIDTH + 2; j++)
+//         {
+//             printf("%3d", mainArray[j][i]);
+//         }
+//         printf("\n");
+//     }
+// }

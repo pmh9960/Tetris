@@ -37,7 +37,7 @@ void arrayToBlocks(int arr[][arr_HEIGHT])
     }
 }
 
-void eraseLine(int arr[][arr_HEIGHT])
+void eraseLine(int arr[][arr_HEIGHT], int *score)
 {
     for (int i = arr_HEIGHT - 2; i > 0; i--)
     {
@@ -56,6 +56,8 @@ void eraseLine(int arr[][arr_HEIGHT])
                 arr[j][0] = 0;
             }
             arrayToBlocks(arr);
+            *score += 1000;
+            information(score);
             i = arr_HEIGHT - 1;
         }
     }
