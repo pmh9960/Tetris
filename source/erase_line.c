@@ -9,7 +9,8 @@ bool checkLine(int i, int arr[][arr_HEIGHT])
     int chk = 1;
     for (int j = 2; j < 2 + arr_WIDTH; j++)
     {
-        chk = chk * arr[j][i];
+        if (arr[j][i] == 0)
+            chk = 0;
     }
     if (chk)
         return true;

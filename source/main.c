@@ -9,7 +9,6 @@
 #include "setcursor_type.c"
 #include "boundary.c"
 #include "blocks.c"
-#include "blocks_order.c"
 #include "erase_line.c"
 
 #define freq 50
@@ -49,6 +48,7 @@ int main()
     srand(time(NULL));
     setcursortype(NOCURSOR);
     setBoundary();
+    makeBlockHard(mainArray);
     //seeAllBlocks(mainArray);
     int cnt = 0,
         startX = marginLeft + WIDTH - 2,
@@ -83,7 +83,7 @@ int main()
                 switch (ch)
                 {
                 case LEFT:
-                    if (!isBlockSet(curX - 2, startY, curI, curD, mainArray))
+                    if (!isBlockSet(curX - 2, curY, curI, curD, mainArray))
                     {
                         removeBlock(curX, curY, curI, curD, mainArray);
                         curX = curX - 2;
@@ -91,7 +91,7 @@ int main()
                     }
                     break;
                 case RIGHT:
-                    if (!isBlockSet(curX + 2, startY, curI, curD, mainArray))
+                    if (!isBlockSet(curX + 2, curY, curI, curD, mainArray))
                     {
                         removeBlock(curX, curY, curI, curD, mainArray);
                         curX = curX + 2;
@@ -99,21 +99,21 @@ int main()
                     }
                     break;
                 case SPACE:
-                    if (!isBlockSet(curX, startY, curI, curD + 1, mainArray))
+                    if (!isBlockSet(curX, curY, curI, curD + 1, mainArray))
                     {
                         removeBlock(curX, curY, curI, curD, mainArray);
                         putBlock(curX, curY, curI, ++curD, mainArray);
                     }
                     break;
                 case UP:
-                    if (!isBlockSet(curX, startY, curI, curD + 1, mainArray))
+                    if (!isBlockSet(curX, curY, curI, curD + 1, mainArray))
                     {
                         removeBlock(curX, curY, curI, curD, mainArray);
                         putBlock(curX, curY, curI, ++curD, mainArray);
                     }
                     break;
                 case DOWN:
-                    if (!isBlockSet(curX, startY, curI, curD, mainArray))
+                    if (!isBlockSet(curX, curY + 1, curI, curD, mainArray))
                     {
                         removeBlock(curX, curY, curI, curD, mainArray);
                         putBlock(curX, ++curY, curI, curD, mainArray);
@@ -125,7 +125,7 @@ int main()
             // block fall
             if (cnt % 10 == 0)
             {
-                showMainArray();
+                //showMainArray();
                 if (!isBlockSet(curX, curY + 1, curI, curD, mainArray))
                 {
                     removeBlock(curX, curY, curI, curD, mainArray);
@@ -141,6 +141,7 @@ int main()
             cnt++;
         }
         eraseLine(mainArray);
+        makeBlockHard(mainArray);
     }
 
     system("pause > nul"); // 실행창 바로 닫힘 해결법
@@ -154,7 +155,7 @@ void showMainArray()
         gotoxy(70, i);
         for (int j = 1; j < WIDTH + 2; j++)
         {
-            printf("%d ", mainArray[j][i]);
+            printf("%3d", mainArray[j][i]);
         }
         printf("\n");
     }
