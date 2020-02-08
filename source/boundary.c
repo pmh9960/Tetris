@@ -9,8 +9,8 @@ void information();
 
 void setBoundary()
 {
-
-    information();
+    int rst = 0;
+    information(&rst);
 
     for (int j = 0; j < HEIGHT + 1; j++)
     {
@@ -42,5 +42,5 @@ void information(int *num)
     gotoxy(marginLeft + (WIDTH)*2 + marginRight * 2 + 2, marginTop + 6);
     printf("N E X T");
     gotoxy(marginLeft + (WIDTH)*2 + marginRight * 2 - 2, marginTop + 8);
-    printf("SCORE : %7d", *num);
+    printf("SCORE : %6d", *num);
 }

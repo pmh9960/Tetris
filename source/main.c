@@ -44,6 +44,7 @@ int mainArray[WIDTH + 3][HEIGHT + 5] = {
 int nextArray[WIDTH + 3][HEIGHT + 5] = {
     0,
 };
+int score = 0, speed = 30;
 
 // void showMainArray();
 
@@ -61,8 +62,39 @@ int main()
         curX, curY, curI, curD, // current x, y, index, direction
         nextI = rand() % 7,
         nextD = rand() % 4;
-    int score = 0, speed = 30;
     char ch;
+
+    cnt = 0;
+    while (true)
+    {
+        if (kbhit())
+        {
+            ch = getch();
+            if (ch == SPACE)
+                break;
+        }
+
+        gotoxy(marginLeft, marginTop + HEIGHT + 2);
+        printf("ก็ กๆ ก้ : MOVE, ก่ or 'SPACE' : ROTATE");
+        if (cnt > 70)
+            cnt = 0;
+        if (cnt / 35 == 0)
+        {
+            gotoxy(marginLeft, marginTop + HEIGHT + 4);
+            printf("Press 'SPACE' button to start.");
+        }
+        else
+        {
+            gotoxy(marginLeft, marginTop + HEIGHT + 4);
+            printf("                                 ");
+        }
+        Sleep(1000 / freq);
+        cnt++;
+    }
+    gotoxy(marginLeft, marginTop + HEIGHT + 2);
+    printf("                                         ");
+    gotoxy(marginLeft, marginTop + HEIGHT + 4);
+    printf("                                 ");
 
     while (!isBlockSet(startX, startY + 1, curI, curD, mainArray))
     {
@@ -174,14 +206,14 @@ int main()
         {
             gotoxy(marginLeft + 4, marginTop + HEIGHT + 2);
             printf("G A M E  O V E R");
-            gotoxy(marginLeft, marginTop + HEIGHT + 3);
+            gotoxy(marginLeft, marginTop + HEIGHT + 4);
             printf("Press 'ESC' button to exit.");
         }
         else
         {
             gotoxy(marginLeft + 4, marginTop + HEIGHT + 2);
             printf("                  ");
-            gotoxy(marginLeft, marginTop + HEIGHT + 3);
+            gotoxy(marginLeft, marginTop + HEIGHT + 4);
             printf("                            ");
         }
         Sleep(1000 / freq);
